@@ -17,10 +17,9 @@ public class SurveysController {
 
     @GetMapping("/surveys")
     public  String getSurvey(Model model){
-        List listSurvey=surveyService.listSurvey();
+        List<Survey> listSurvey=surveyService.listSurvey();
         Survey survey=new Survey();
-
-        model.addAttribute("survey", survey);
+        model.addAttribute("survey", survey); //for form
         model.addAttribute("listSurvey", listSurvey);
         return "surveys";
     }

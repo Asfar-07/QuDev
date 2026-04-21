@@ -133,9 +133,9 @@
                 <path d="M9 6V4h6v2" />
               </svg>
             </button>
-            <a
-              th:href="@{/questions/{id}(id=${survey.key})}"
-              class="survey-card-body"
+            <a th:if="${!#lists.isEmpty(survey.versions)}"
+               th:href="@{/questions/{surveyId}/{versionId}(surveyId=${survey.key},
+               versionId=${survey.versions[survey.versions.size() - 1].id})}"            class="survey-card-body"
             ></a>
             <h3 th:text="${survey.name}"></h3>
             <div class="card-id" 

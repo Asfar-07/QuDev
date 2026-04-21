@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SurveyService {
 
-    public List listSurvey();
-    public void addNewSurvey(Survey survey);
-    public void updateSurvey(String id, UpdateSurvey request);
+    List<Survey> listSurvey();
+    void addNewSurvey(Survey survey);
+    void updateSurvey(String id, UpdateSurvey request);
 }

@@ -30,4 +30,6 @@ public class Survey {
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SurveyVersion> versions = new ArrayList<>();
+
+
 }
