@@ -1,6 +1,7 @@
 package com.example.qudev.model.question;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table( name = "qs_options")
 public class QsOption {

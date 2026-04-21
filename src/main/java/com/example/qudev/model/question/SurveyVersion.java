@@ -1,15 +1,17 @@
 package com.example.qudev.model.question;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@Data
 @Entity
+@Builder
 @Table(name = "survey_versions")
 public class SurveyVersion {
     @Id
@@ -25,7 +27,7 @@ public class SurveyVersion {
     private Survey survey;
 
     @OneToMany(mappedBy = "surveyVersion", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Question> questions = new ArrayList<>();
+    private Set<Question> questions;
 
     @OneToMany(mappedBy = "surveyVersion", cascade = CascadeType.ALL)
     private List<UserSurveySession> sessions = new ArrayList<>();

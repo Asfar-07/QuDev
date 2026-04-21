@@ -1,5 +1,7 @@
 package com.example.qudev.controller;
+import com.example.qudev.model.request.QuestionRequest;
 import com.example.qudev.model.request.UpdateSurvey;
+import com.example.qudev.service.QuestionService;
 import com.example.qudev.service.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ public class ApiController {
 
     @Autowired
     SurveyService surveyService;
+
+    @Autowired
+    QuestionService questionService;
 
     public ApiController(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -34,8 +39,14 @@ public class ApiController {
     @PutMapping("/update/survey/{id}")
     public ResponseEntity<String> updateSurvey(@PathVariable String id,
                                        @RequestBody UpdateSurvey request){
-        System.out.println(id);
         surveyService.updateSurvey(id,request);
+        return  ResponseEntity.ok("ok");
+    }
+
+    @PostMapping("/new/question/{versionId}")
+    public ResponseEntity<String> AddQuestion( @PathVariable Long versionId,
+                                               @RequestBody QuestionRequest request){
+        questionService.saveQuestion(versionId,request);
         return  ResponseEntity.ok("ok");
     }
 }

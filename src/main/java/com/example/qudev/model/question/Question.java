@@ -1,13 +1,16 @@
 package com.example.qudev.model.question;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table( name = "questions")
 public class Question {
@@ -39,7 +42,7 @@ public class Question {
     private SurveyVersion surveyVersion;
 
     @OneToMany( mappedBy = "question",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<QsOption> option;
+    private Set<QsOption> option;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<SurveyResponse> responses;
