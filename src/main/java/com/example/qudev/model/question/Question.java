@@ -1,15 +1,16 @@
 package com.example.qudev.model.question;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table( name = "questions")
@@ -41,14 +42,21 @@ public class Question {
     @JoinColumn(name = "ver_id", nullable = false)
     private SurveyVersion surveyVersion;
 
-    @OneToMany( mappedBy = "question",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<QsOption> option;
+    @OneToMany( mappedBy = "question",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<QsOption> option = new HashSet<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<SurveyResponse> responses;
+    private Set<SurveyResponse> responses=new HashSet<>();
 
     public enum Type {
-        single_choice, multi_choice, text, rating
+        SINGLE, MULTIPLE, TEXT, SCALE, BOOLEAN
+    }
+    public void addOption(QsOption opt) {
+        if (option == null) {
+            option = new HashSet<>();
+        }
+        option.add(opt);
+        opt.setQuestion(this);
     }
 }
 

@@ -25,7 +25,7 @@ let targetCard = null;
 function openDeleteModal(btn, name) {
   // Walk up the DOM to find the survey card this button belongs to
   targetCard = btn.closest('.survey-card');
-
+  const id = btn.getAttribute("data-id");
   // Inject the survey name into the modal badge
   document.getElementById('modal-survey-name').textContent = name;
 
@@ -67,19 +67,38 @@ function handleOverlayClick(e) {
  * Replace the contents of this function with your real API delete call,
  * e.g.:  fetch('/api/surveys/' + surveyId, { method: 'DELETE' })
  */
-function confirmDelete() {
+async function confirmDelete(btn) {
   if (!targetCard) return;
-
+  btn.disabled = true; 
   // Animate card out
   targetCard.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
   targetCard.style.opacity = '0';
   targetCard.style.transform = 'scale(0.92)';
-
+  const id = document.getElementById("card-delete-btn").getAttribute("data-id");
   // Remove from DOM after animation finishes
-  setTimeout(() => {
-    targetCard.remove();
-    closeDeleteModal();
-  }, 300);
+   try {
+      const res = await fetch(`/delete/survey/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!res.ok) throw new Error(`Server error: ${res.status}`);
+
+      setTimeout(() => {
+        targetCard.remove();
+        closeDeleteModal();
+        btn.disabled = false; 
+        btn.textContent="Delete Forever"
+      }, 300);
+
+      }catch(err){
+        console.error(err);
+        btn.disabled = false; 
+        btn.textContent="Delete Forever"
+      }finally{
+        btn.textContent="Deleting...."
+      }
+
 }
 
 // Close modal when user presses the Escape key

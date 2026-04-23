@@ -5,6 +5,7 @@ import com.example.qudev.model.question.SurveyVersion;
 import com.example.qudev.model.request.UpdateSurvey;
 import com.example.qudev.repository.SurveyRepo;
 import com.example.qudev.repository.SurveyVersionRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,11 @@ public class SurveyServiceIMP implements com.example.qudev.service.SurveyService
     @Override
     public List<Survey> listSurvey() {
         return surveysRepo.findAll();
+    }
+
+    @Override
+    public Survey getSurvey(String surveyId) {
+        return surveysRepo.findByKey(surveyId).orElse(null);
     }
 
     @Override
@@ -60,6 +66,15 @@ public class SurveyServiceIMP implements com.example.qudev.service.SurveyService
         }
 
         surveysRepo.save(item);
+    }
+
+    @Override
+    @Transactional
+    public void deleteSurvey(Long surveyId) {
+        Survey survey = surveysRepo.findById(surveyId)
+                .orElseThrow(() -> new RuntimeException("Survey not found"));
+
+        surveysRepo.delete(survey);
     }
 
 

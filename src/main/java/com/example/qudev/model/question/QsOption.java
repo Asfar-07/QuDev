@@ -1,15 +1,18 @@
 package com.example.qudev.model.question;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Builder
 @Entity
 @Table( name = "qs_options")
@@ -35,6 +38,6 @@ public class QsOption {
     private boolean active;
 
     @OneToMany(mappedBy = "selectedOption", cascade = CascadeType.ALL)
-    private List<SurveyResponse> responses=new ArrayList<>();
+    private Set<SurveyResponse> responses=new HashSet<>();
 
 }

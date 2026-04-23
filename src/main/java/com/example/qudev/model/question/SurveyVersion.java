@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-@Data
 @Entity
 @Builder
 @Table(name = "survey_versions")
@@ -30,5 +30,5 @@ public class SurveyVersion {
     private Set<Question> questions;
 
     @OneToMany(mappedBy = "surveyVersion", cascade = CascadeType.ALL)
-    private List<UserSurveySession> sessions = new ArrayList<>();
+    private List<UserSurveySession> sessions;
 }

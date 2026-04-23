@@ -114,7 +114,9 @@
         <div class="surveys-grid fade-up-2" >
           <div class="survey-card" th:each="survey:${listSurvey}" th:data-id="${survey.key}">
             <button
+              id="card-delete-btn"
               class="card-delete-btn"
+              th:data-id="${survey.id}"
               onclick="
                 event.stopPropagation();
                 openDeleteModal(this, 'User Onboarding Survey');
@@ -145,7 +147,7 @@
               Collect initial preferences and feedback from new users
             </p>
             <div class="survey-card-footer">
-              <span class="count">8 questions</span>
+              <!-- <span class="count">8 questions</span> -->
               <button
               th:classappend="${survey.active} ?'active' : 'inactive'"
               th:text="${survey.active} ? 'Active' : 'Deactive'"
@@ -311,7 +313,7 @@
           <button class="btn-modal-cancel" onclick="closeDeleteModal()">
             Cancel
           </button>
-          <button class="btn-danger" onclick="confirmDelete()">
+          <button class="btn-danger" onclick="confirmDelete(this)">
             <svg
               viewBox="0 0 24 24"
               fill="none"

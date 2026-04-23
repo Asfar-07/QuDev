@@ -43,6 +43,14 @@ public class ApiController {
         return  ResponseEntity.ok("ok");
     }
 
+    @DeleteMapping("/delete/survey/{id}")
+    public ResponseEntity<String> DeleteSurvey(@PathVariable long id){
+        System.out.println(id);
+        surveyService.deleteSurvey(id);
+        return ResponseEntity.ok("ok");
+    }
+
+
     @PostMapping("/new/question/{versionId}")
     public ResponseEntity<String> AddQuestion( @PathVariable Long versionId,
                                                @RequestBody QuestionRequest request){

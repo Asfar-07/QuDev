@@ -43,8 +43,8 @@ public class QuestionServiceIMP implements QuestionService {
                 .build();
 
         if(request.getOptions() != null &&
-                (request.getType() == Question.Type.single_choice
-                        || request.getType() == Question.Type.multi_choice)){
+                (request.getType() == Question.Type.SINGLE
+                        || request.getType() == Question.Type.MULTIPLE)){
 
             int order=0;
             for (OptionRequest opt : request.getOptions()) {
@@ -56,7 +56,7 @@ public class QuestionServiceIMP implements QuestionService {
                         .question(question) // link with id
                         .active(true)
                         .build();
-                question.getOption().add(option);
+                question.addOption(option);
             }
         }
         questionRepo.save(question);

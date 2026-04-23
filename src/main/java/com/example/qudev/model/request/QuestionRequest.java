@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter @Setter
 public class QuestionRequest {
@@ -14,5 +15,5 @@ public class QuestionRequest {
     private int order;
     private boolean required;
 
-    private List<OptionRequest> options;
+    private Set<OptionRequest> options;
 }

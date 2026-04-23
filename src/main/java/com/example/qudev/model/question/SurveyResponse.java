@@ -1,11 +1,13 @@
 package com.example.qudev.model.question;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Table( name = "survey_responses")
 public class SurveyResponse  {
