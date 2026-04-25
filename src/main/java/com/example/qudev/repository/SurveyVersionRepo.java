@@ -13,6 +13,9 @@ public interface SurveyVersionRepo extends JpaRepository<SurveyVersion,Long> {
 
     @Override
     Optional<SurveyVersion> findById(Long id);
+
+    long countBySurveyId(Long surveyId);
+
     @Query("""
     SELECT v FROM SurveyVersion v
     LEFT JOIN FETCH v.questions q

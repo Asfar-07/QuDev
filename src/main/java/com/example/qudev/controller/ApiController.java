@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.util.List;
 
 @RestController
 public class ApiController {
@@ -28,12 +29,12 @@ public class ApiController {
     public String checkDb() {
         try (Connection conn = dataSource.getConnection()) {
             if (conn.isValid(2)) {
-                return "✅ DB Connection SUCCESS";
+                return "DB Connection SUCCESS";
             } else {
-                return "❌ DB Connection FAILED";
+                return "DB Connection FAILED";
             }
         } catch (Exception e) {
-            return "❌ DB Connection FAILED: " + e.getMessage();
+            return " DB Connection FAILED: " + e.getMessage();
         }
     }
     @PutMapping("/update/survey/{id}")
@@ -56,5 +57,18 @@ public class ApiController {
                                                @RequestBody QuestionRequest request){
         questionService.saveQuestion(versionId,request);
         return  ResponseEntity.ok("ok");
+    }
+
+    @PutMapping("/update/question")
+    public ResponseEntity<String> UpdateQuestion(@RequestBody List<QuestionRequest> req,@RequestParam(name="createNewVersion") boolean isNewVersion){
+        questionService.updateQuestion(req,isNewVersion);
+        return ResponseEntity.ok("ok");
+    }
+
+    @DeleteMapping("/delete/question")
+    public  ResponseEntity<String> DeleteQuestion(@RequestBody List<Long> questionIds, @RequestParam(name="createNewVersion") boolean isNewVersion){
+
+        questionService.delectQuestion(questionIds,isNewVersion);
+        return ResponseEntity.ok("ok");
     }
 }
