@@ -625,6 +625,7 @@
 
         rebuildList();
         closeEditor();
+        payload.createNewVersion && window.location.reload()
 
       }catch(error){
 
@@ -642,7 +643,7 @@
         if (!res.ok) throw new Error(`Server error: ${res.status}`);
               // update local state (simulate backend success)
         questions = kept.map(({ order, ...rest }) => rest);
-
+        payload.createNewVersion && window.location.reload()
         rebuildList();
         closeEditor();
 

@@ -135,6 +135,15 @@ public class QuestionServiceIMP implements QuestionService {
 
                 this.applyUpdate(clonedQ,req);
             }
+            Survey survey = oldVersion.getSurvey();
+            List<SurveyVersion> versions = survey.getVersions();
+            int index=0;
+            for (SurveyVersion v: versions){
+                index++;
+                v.setActive(false);
+                if (index == versions.size()) break;
+            }
+            surveyVersionRepo.saveAll(versions);
             surveyVersionRepo.save(newVersion);
 
         }else{
@@ -168,9 +177,9 @@ public class QuestionServiceIMP implements QuestionService {
             throw new RuntimeException("Questions not found");
         }
 
-        SurveyVersion version = questions.getFirst().getSurveyVersion();
+        SurveyVersion oldVersion = questions.getFirst().getSurveyVersion();
         boolean sameVersion = questions.stream()
-                .allMatch(q -> q.getSurveyVersion().getId().equals(version.getId()));
+                .allMatch(q -> q.getSurveyVersion().getId().equals(oldVersion.getId()));
 
         if (!sameVersion) {
             throw new RuntimeException("All questions must belong to same version");
@@ -179,7 +188,7 @@ public class QuestionServiceIMP implements QuestionService {
         if(createNewVersion){
 
             //  creating new version with duplicate questions and options
-            SurveyVersion newVersion = this.cloneVersion(version);
+            SurveyVersion newVersion = this.cloneVersion(oldVersion);
             Map<String,Question> cloneMapped= this.clonedMap(newVersion);
             for (Question q : questions) {
                 Question changedQ = cloneMapped.get(q.getQuestion_key());
@@ -187,7 +196,15 @@ public class QuestionServiceIMP implements QuestionService {
                     newVersion.getQuestions().remove(changedQ);
                 }
             }
-
+            Survey survey = oldVersion.getSurvey();
+            List<SurveyVersion> versions = survey.getVersions();
+            int index=0;
+            for (SurveyVersion v: versions){
+                index++;
+                v.setActive(false);
+                if (index == versions.size()) break;
+            }
+            surveyVersionRepo.saveAll(versions);
             surveyVersionRepo.save(newVersion);
 
         }else {
@@ -263,8 +280,9 @@ public class QuestionServiceIMP implements QuestionService {
         oldquestion.setQuestion_text(req.getQuestionText());
         oldquestion.setType(req.getType());
         oldquestion.setRequired(req.isRequired());
-
-        this.updateOption(oldquestion, req.getOptions());
+        if(req.getOptions() != null){
+            this.updateOption(oldquestion, req.getOptions());
+        }
 
     }
 
