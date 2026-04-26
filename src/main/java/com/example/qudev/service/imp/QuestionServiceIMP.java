@@ -29,6 +29,11 @@ public class QuestionServiceIMP implements QuestionService {
     }
 
     @Override
+    public List<Question> listQuestions() {
+        return questionRepo.findAll();
+    }
+
+    @Override
     public SurveyVersionResponse collectQuestion(long versionId) {
         SurveyVersion version = surveyVersionRepo.fetchFullVersion(versionId)
                 .orElseThrow(() -> new RuntimeException("Version not found"));
@@ -68,6 +73,7 @@ public class QuestionServiceIMP implements QuestionService {
         response.setQuestions(questionList);
         return response;
     }
+
 
     @Override
     public void saveQuestion(Long versionId, QuestionRequest request) {
@@ -115,7 +121,7 @@ public class QuestionServiceIMP implements QuestionService {
         Question oldQuestion = questionRepo.findById(requests.getFirst().getId()).orElse(null);
         assert oldQuestion != null;
         SurveyVersion oldVersion = oldQuestion.getSurveyVersion();
-        
+
         if (createNewVersion){
 
             SurveyVersion newVersion = this.cloneVersion(oldVersion);

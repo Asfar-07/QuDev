@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Survey Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --bg:       #1B3C53;
+            --surface:  #234C6A;
+            --border:   #456882;
+            --accent:   #D2C1B6;
+            --accent2:  #a8c5b5;
+            --warn:     #e8c07a;
+            --danger:   #e07b7b;
+            --text:     #F0E8E3;
+            --muted:    #8fa8b8;
+            --head-bg:  #1B3C53;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ── TOP NAV ── */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            height: 56px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header a{
+            text-decoration: none;
+            color: white;
+        }
+        header .logo {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+        }
+        header .logo span { color: var(--muted); }
+
+        /* ── LAYOUT ── */
+        .layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: calc(100vh - 56px);
+        }
+
+        /* ── SIDEBAR ── */
+        nav.sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+        }
+        nav.sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color .15s, background .15s;
+        }
+        nav.sidebar a:hover,
+        nav.sidebar a.active {
+            color: var(--text);
+            background: rgba(210,193,182,.08);
+            border-right: 2px solid var(--accent);
+        }
+        nav.sidebar .nav-icon { font-size: 16px; }
+        nav.sidebar .section-label {
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 16px 24px 6px;
+        }
+
+        /* ── MAIN ── */
+        main {
+            padding: 32px;
+            overflow-x: auto;
+        }
+
+        /* ── PAGE TITLE ── */
+        .page-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .page-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        /* ── SECTION CARD ── */
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--head-bg);
+        }
+        .section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title .icon { font-size: 16px; }
+        .badge {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            background: rgba(210,193,182,.15);
+            color: var(--accent);
+        }
+
+        /* ── TABLE ── */
+        .tbl-wrap { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead tr {
+            background: var(--head-bg);
+        }
+        th {
+            padding: 10px 16px;
+            text-align: left;
+            font-size: 11px;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border);
+        }
+        td {
+            padding: 11px 16px;
+            border-bottom: 1px solid rgba(42,47,62,.7);
+            vertical-align: middle;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: rgba(210,193,182,.04); }
+
+        /* ── CHIPS ── */
+        .chip {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .chip-green  { background: rgba(168,197,181,.18); color: #a8c5b5; }
+        .chip-red    { background: rgba(224,123,123,.18); color: #e07b7b; }
+        .chip-yellow { background: rgba(232,192,122,.18); color: #e8c07a; }
+        .chip-blue   { background: rgba(210,193,182,.18); color: var(--accent); }
+        .chip-purple { background: rgba(180,160,210,.18); color: #b4a0d2; }
+        .chip-gray   { background: rgba(143,168,184,.18); color: var(--muted); }
+
+        /* ── ID PILL ── */
+        .id-pill {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            background: rgba(27,60,83,.55);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* ── EMPTY ── */
+        .empty-row td {
+            text-align: center;
+            color: var(--muted);
+            font-style: italic;
+            padding: 28px 16px;
+        }
+
+        /* ── QUESTION TYPE ── */
+        .qtype { display: inline-flex; align-items: center; gap: 5px; }
+        .qtype-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-SINGLE   { background: var(--accent); }
+        .dot-MULTIPLE { background: var(--accent2); }
+        .dot-TEXT     { background: var(--warn); }
+        .dot-SCALE    { background: #b4a0d2; }
+        .dot-BOOLEAN  { background: var(--danger); }
+
+        /* ── TRUNCATE ── */
+        .truncate {
+            max-width: 260px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── KEY CODE ── */
+        code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            background: rgba(27,60,83,.55);
+            border: 1px solid var(--border);
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ TOP HEADER ══ -->
+<header>
+    <a class="logo" href="/">QuDev <span>/ Survey Admin</span></a>
+    <a href="/">Home</a>
+</header>
+
+<div class="layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <nav class="sidebar">
+        <div class="section-label">Entities</div>
+        <a href="#surveys"   class="active"><span class="nav-icon">📋</span> Surveys</a>
+        <a href="#versions"             ><span class="nav-icon">🔖</span> Versions</a>
+        <a href="#sessions"             ><span class="nav-icon">👤</span> User Sessions</a>
+        <a href="#questions"            ><span class="nav-icon">❓</span> Questions</a>
+        <a href="#options"              ><span class="nav-icon">☑️</span> Options</a>
+        <a href="#responses"            ><span class="nav-icon">💬</span> Responses</a>
+    </nav>
+
+    <!-- ══ MAIN CONTENT ══ -->
+    <main>
+        <div class="page-title">Database Overview</div>
+        <div class="page-sub">All entities displayed in relational order</div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 1. SURVEYS                                   -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section" id="surveys">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="icon">📋</span> surveys
+                </div>
+                <span class="badge" th:text="${surveys != null ? surveys.size() : 0} + ' rows'">0 rows</span>
+            </div>
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#id</th>
+                            <th>name</th>
+                            <th>survey_key</th>
+                            <th>description</th>
+                            <th>active</th>
+                            <th>versions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- th:each iterates over the surveys list passed from controller -->
+                        <tr th:each="s : ${surveys}">
+                            <td><span class="id-pill" th:text="${s.id}">1</span></td>
+                            <td th:text="${s.name}">Customer Feedback</td>
+                            <td><code th:text="${s.key}">cust_feedback</code></td>
+                            <td class="truncate" th:text="${s.description}">Survey description…</td>
+                            <td>
+                                <span th:if="${s.active}"  class="chip chip-green">Active</span>
+                                <span th:unless="${s.active}" class="chip chip-red">Inactive</span>
+                            </td>
+                            <td th:text="${s.versions != null ? s.versions.size() : 0}">2</td>
+                        </tr>
+                        <!-- empty state -->
+                        <tr class="empty-row" th:if="${surveys == null or surveys.isEmpty()}">
+                            <td colspan="6">No surveys found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 2. SURVEY VERSIONS                          -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section" id="versions">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="icon">🔖</span> survey_versions
+                </div>
+                <span class="badge" th:text="${versions != null ? versions.size() : 0} + ' rows'">0 rows</span>
+            </div>
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#id</th>
+                            <th>version_name</th>
+                            <th>survey_id (FK)</th>
+                            <th>active</th>
+                            <th>questions</th>
+                            <th>sessions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="v : ${versions}">
+                            <td><span class="id-pill" th:text="${v.id}">1</span></td>
+                            <td th:text="${v.versionName}">v1.0</td>
+                            <td>
+                                <span class="id-pill" th:text="${v.survey != null ? v.survey.id : '-'}">1</span>
+                                <span style="color:var(--muted);margin-left:4px;"
+                                      th:text="${v.survey != null ? v.survey.name : ''}">Survey name</span>
+                            </td>
+                            <td>
+                                <span th:if="${v.active}"    class="chip chip-green">Active</span>
+                                <span th:unless="${v.active}" class="chip chip-red">Inactive</span>
+                            </td>
+                            <td th:text="${v.questions != null ? v.questions.size() : 0}">5</td>
+                            <td th:text="${v.sessions  != null ? v.sessions.size()  : 0}">12</td>
+                        </tr>
+                        <tr class="empty-row" th:if="${versions == null or versions.isEmpty()}">
+                            <td colspan="6">No versions found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 3. USER SURVEY SESSIONS                     -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section" id="sessions">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="icon">👤</span> user_survey_sessions
+                </div>
+                <span class="badge" th:text="${sessions != null ? sessions.size() : 0} + ' rows'">0 rows</span>
+            </div>
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#id</th>
+                            <th>user_id</th>
+                            <th>ver_id (FK)</th>
+                            <th>status</th>
+                            <th>started_at</th>
+                            <th>responses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="sess : ${sessions}">
+                            <td><span class="id-pill" th:text="${sess.id}">1</span></td>
+                            <td><code th:text="${sess.userId}">101</code></td>
+                            <td>
+                                <span class="id-pill"
+                                      th:text="${sess.surveyVersion != null ? sess.surveyVersion.id : '-'}">1</span>
+                                <span style="color:var(--muted);margin-left:4px;"
+                                      th:text="${sess.surveyVersion != null ? sess.surveyVersion.versionName : ''}">v1</span>
+                            </td>
+                            <td>
+                                <span th:switch="${sess.status}">
+                                    <span th:case="'COMPLETED'" class="chip chip-green">Completed</span>
+                                    <span th:case="'IN_PROGRESS'" class="chip chip-yellow">In Progress</span>
+                                    <span th:case="'ABANDONED'" class="chip chip-red">Abandoned</span>
+                                    <span th:case="*" class="chip chip-gray" th:text="${sess.status}">Unknown</span>
+                                </span>
+                            </td>
+                            <td th:text="${sess.startedAt}">2024-01-01T10:00</td>
+                            <td th:text="${sess.responses != null ? sess.responses.size() : 0}">3</td>
+                        </tr>
+                        <tr class="empty-row" th:if="${sessions == null or sessions.isEmpty()}">
+                            <td colspan="6">No sessions found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 4. QUESTIONS                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section" id="questions">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="icon">❓</span> questions
+                </div>
+                <span class="badge" th:text="${questions != null ? questions.size() : 0} + ' rows'">0 rows</span>
+            </div>
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#id</th>
+                            <th>order</th>
+                            <th>question_key</th>
+                            <th>question_text</th>
+                            <th>type</th>
+                            <th>required</th>
+                            <th>active</th>
+                            <th>ver_id (FK)</th>
+                            <th>options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="q : ${questions}">
+                            <td><span class="id-pill" th:text="${q.id}">1</span></td>
+                            <td th:text="${q.order}">1</td>
+                            <td><code th:text="${q.question_key}">feature_rating</code></td>
+                            <td class="truncate" th:text="${q.question_text}">Rate this feature</td>
+                            <td>
+                                <!-- colour-coded type dot -->
+                                <span class="qtype">
+                                    <span class="qtype-dot"
+                                          th:classappend="'dot-' + ${q.type}"></span>
+                                    <span th:text="${q.type}">SINGLE</span>
+                                </span>
+                            </td>
+                            <td>
+                                <span th:if="${q.required}"    class="chip chip-blue">Yes</span>
+                                <span th:unless="${q.required}" class="chip chip-gray">No</span>
+                            </td>
+                            <td>
+                                <span th:if="${q.active}"    class="chip chip-green">Active</span>
+                                <span th:unless="${q.active}" class="chip chip-red">Inactive</span>
+                            </td>
+                            <td>
+                                <span class="id-pill"
+                                      th:text="${q.surveyVersion != null ? q.surveyVersion.id : '-'}">1</span>
+                            </td>
+                            <td th:text="${q.option != null ? q.option.size() : 0}">4</td>
+                        </tr>
+                        <tr class="empty-row" th:if="${questions == null or questions.isEmpty()}">
+                            <td colspan="9">No questions found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 5. OPTIONS                                  -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section" id="options">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="icon">☑️</span> qs_options
+                </div>
+                <span class="badge" th:text="${options != null ? options.size() : 0} + ' rows'">0 rows</span>
+            </div>
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#id</th>
+                            <th>order</th>
+                            <th>option_key</th>
+                            <th>option_text</th>
+                            <th>active</th>
+                            <th>q_id (FK)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="opt : ${options}">
+                            <td><span class="id-pill" th:text="${opt.id}">1</span></td>
+                            <td th:text="${opt.order}">1</td>
+                            <td><code th:text="${opt.option_key}">opt_yes</code></td>
+                            <td th:text="${opt.option_text}">Yes</td>
+                            <td>
+                                <span th:if="${opt.active}"    class="chip chip-green">Active</span>
+                                <span th:unless="${opt.active}" class="chip chip-red">Inactive</span>
+                            </td>
+                            <td>
+                                <span class="id-pill"
+                                      th:text="${opt.question != null ? opt.question.id : '-'}">1</span>
+                                <span style="color:var(--muted);margin-left:4px;"
+                                      th:text="${opt.question != null ? opt.question.question_key : ''}">q_key</span>
+                            </td>
+                        </tr>
+                        <tr class="empty-row" th:if="${options == null or options.isEmpty()}">
+                            <td colspan="6">No options found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 6. RESPONSES                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="section" id="responses">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="icon">💬</span> survey_responses
+                </div>
+                <span class="badge" th:text="${responses != null ? responses.size() : 0} + ' rows'">0 rows</span>
+            </div>
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#id</th>
+                            <th>session_id (FK)</th>
+                            <th>q_id (FK)</th>
+                            <th>opt_id (FK)</th>
+                            <th>free_text_value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="r : ${responses}">
+                            <td><span class="id-pill" th:text="${r.id}">1</span></td>
+                            <td>
+                                <span class="id-pill"
+                                      th:text="${r.session != null ? r.session.id : '-'}">1</span>
+                            </td>
+                            <td>
+                                <span class="id-pill"
+                                      th:text="${r.question != null ? r.question.id : '-'}">1</span>
+                                <span style="color:var(--muted);margin-left:4px;"
+                                      th:text="${r.question != null ? r.question.question_key : ''}">q_key</span>
+                            </td>
+                            <td>
+                                <!-- null for TEXT/SCALE types -->
+                                <span th:if="${r.selectedOption != null}">
+                                    <span class="id-pill" th:text="${r.selectedOption.id}">2</span>
+                                    <span style="color:var(--muted);margin-left:4px;"
+                                          th:text="${r.selectedOption.option_text}">Option text</span>
+                                </span>
+                                <span th:unless="${r.selectedOption != null}"
+                                      style="color:var(--muted);font-style:italic;font-size:12px;">—</span>
+                            </td>
+                            <td>
+                                <span th:if="${r.freeTextValue != null and !#strings.isEmpty(r.freeTextValue)}"
+                                      class="truncate" th:text="${r.freeTextValue}">User typed…</span>
+                                <span th:unless="${r.freeTextValue != null and !#strings.isEmpty(r.freeTextValue)}"
+                                      style="color:var(--muted);font-style:italic;font-size:12px;">—</span>
+                            </td>
+                        </tr>
+                        <tr class="empty-row" th:if="${responses == null or responses.isEmpty()}">
+                            <td colspan="5">No responses found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

@@ -62,7 +62,7 @@
      the "Open as this user" button.
 
      @param {HTMLElement} card     - The clicked .test-user-card
-     @param {string}      demoId  - e.g. "demo001"
+     @param {string}      demoId  - e.g. "11111"
      @param {string}      name    - e.g. "Alice Harper"
      @param {string}      initials- e.g. "AH"
      @param {string}      color   - CSS color for the avatar bg
@@ -92,7 +92,7 @@
   function goTestUser() {
     if (!selectedTestUser) return;
 
-    const url = `/user/account/${selectedTestUser.demoId}`;
+    const url = `/demo/user/account/${Number(selectedTestUser.demoId)}`;
 
     console.group('%c🧪 Test User Selected', 'color:#D2C1B6;font-weight:bold;font-size:13px;');
     console.log('User   :', selectedTestUser.name);
@@ -101,8 +101,7 @@
     console.groupEnd();
 
     // ↓ Uncomment to actually navigate when backend is ready
-    // window.location.href = url;
-
+    window.location.href=url;
     closeTestPopup();
     showToast(selectedTestUser, url);
   }

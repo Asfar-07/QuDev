@@ -1,0 +1,381 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>qu.dev – Test Account</title>
+<link rel="stylesheet" href="/css/styles.css"/>
+<link rel="stylesheet" href="/css/admin-test.css">
+<link rel="stylesheet" href="/css/test-popup.css" />
+</head>
+<body>
+    <div id="test-popup" class="test-popup">
+
+    <!-- Header -->
+    <div class="test-popup-header">
+      <span>Test as User</span>
+      <button class="test-popup-close" onclick="closeTestPopup()">×</button>
+    </div>
+
+    <!-- Hint -->
+    <p class="test-popup-hint">
+      Select a demo account to preview the survey experience.
+    </p>
+
+    <!-- User list -->
+    <div class="test-user-list">
+
+      <div class="test-user-card" onclick="selectTestUser(this, '11111', 'Alice Harper', 'AH', '#456882')">
+        <div class="test-user-dp" style="background: #456882;">AH</div>
+        <div class="test-user-info">
+          <div class="test-user-name">Alice Harper</div>
+          <div class="test-user-id">demo001</div>
+        </div>
+        <div class="test-user-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="test-user-card" onclick="selectTestUser(this, '22222', 'Ben Okafor', 'BO', '#234C6A')">
+        <div class="test-user-dp" style="background: #234C6A;">BO</div>
+        <div class="test-user-info">
+          <div class="test-user-name">Ben Okafor</div>
+          <div class="test-user-id">demo002</div>
+        </div>
+        <div class="test-user-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="test-user-card" onclick="selectTestUser(this, '333333', 'Sara Neves', 'SN', '#1B3C53')">
+        <div class="test-user-dp" style="background: #1B3C53; border: 1px solid rgba(210,193,182,0.2);">SN</div>
+        <div class="test-user-info">
+          <div class="test-user-name">Sara Neves</div>
+          <div class="test-user-id">demo003</div>
+        </div>
+        <div class="test-user-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Confirm button -->
+    <button class="test-go-btn" id="test-go-btn" onclick="goTestUser()" disabled>
+      Open as this user →
+    </button>
+
+  </div>
+<div class="app">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">qu</div>
+    <a href="/" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      <span>Home</span><div class="tooltip">Home</div>
+    </a>
+    <a href="/connection" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      <span>Conn.</span><div class="tooltip">Connection</div>
+    </a>
+    <a href="/surveys" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>Survey</span><div class="tooltip">Surveys</div>
+    </a>
+    <a href="/survey-overview" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        <span>P&amp;D</span>
+        <div class="tooltip">Print</div>
+      </a>
+    <div class="sidebar-bottom">
+      <button class="nav-item" id="test-nav-btn" onclick="toggleTestPopup(event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" />
+          </svg>
+          <span>Test</span>
+          <div class="tooltip">Testing</div>
+        </button>
+      <a href="/documentation" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+        <span>Help</span><div class="tooltip">Help</div>
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- Demo mode banner -->
+    <div class="demo-banner fade-up">
+      <div class="demo-banner-left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>You are viewing a <strong>demo account</strong> — data shown is simulated for testing only.</span>
+      </div>
+      <div class="demo-banner-right">
+        <button class="banner-btn banner-btn-ghost" onclick="switchUser()">Switch User</button>
+        <button class="banner-btn banner-btn-primary" onclick="history.back()">← Back to Builder</button>
+      </div>
+    </div>
+
+    <!-- Profile hero -->
+    <div class="profile-hero fade-up-2">
+      <div class="profile-avatar" id="hero-avatar">AH</div>
+      <div class="profile-info">
+        <div class="profile-name" id="hero-name">Alice Harper</div>
+        <div class="profile-id" id="hero-id">demo001 · /user/account/demo001</div>
+        <div class="profile-tags">
+          <span class="profile-tag tag-demo">Demo</span>
+          <span class="profile-tag tag-tester">Test Account</span>
+        </div>
+      </div>
+      <div class="profile-hero-actions">
+        <button class="btn btn-secondary" style="font-size:12px;padding:8px 16px;" onclick="resetResponses()">Reset Responses</button>
+        <button class="btn btn-primary" style="font-size:12px;padding:8px 16px;" onclick="simulateSubmit()">Simulate Submit</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row fade-up-2">
+      <div class="stat-card">
+        <div class="stat-val" id="stat-surveys">3</div>
+        <div class="stat-lbl">Surveys Seen</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-completed">2</div>
+        <div class="stat-lbl">Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-questions">14</div>
+        <div class="stat-lbl">Questions Answered</div>
+      </div>
+    </div>
+
+    <!-- Main grid -->
+    <div class="content-grid">
+
+      <!-- LEFT: responses -->
+      <div>
+        <div class="section-title fade-up-3">Survey Responses</div>
+        <div class="response-list fade-up-3" id="response-list">
+
+          <!-- Response 1 -->
+          <div class="response-card">
+            <div class="response-card-header">
+              <div>
+                <div class="response-survey-name">User Onboarding Survey</div>
+                <div class="response-date">Submitted · 24 Apr 2026, 10:32 AM</div>
+              </div>
+              <span class="response-status-badge status-complete">Complete</span>
+            </div>
+            <div class="response-answers">
+              <div class="answer-row">
+                <span class="answer-q">Where did you get this application?</span>
+                <span class="answer-v">YouTube</span>
+              </div>
+              <div class="answer-row">
+                <span class="answer-q">How satisfied are you?</span>
+                <span class="answer-v">4 / 5</span>
+              </div>
+              <div class="answer-row">
+                <span class="answer-q">Would you recommend us?</span>
+                <span class="answer-v">Yes</span>
+              </div>
+            </div>
+            <div class="response-card-footer">
+              <span class="response-meta">key: user_onboarding_v1 · 8 questions · v3</span>
+              <button class="response-expand-btn">View Full →</button>
+            </div>
+          </div>
+
+          <!-- Response 2 -->
+          <div class="response-card">
+            <div class="response-card-header">
+              <div>
+                <div class="response-survey-name">Product Feedback Q2</div>
+                <div class="response-date">In Progress · 25 Apr 2026, 09:14 AM</div>
+              </div>
+              <span class="response-status-badge status-partial">Partial</span>
+            </div>
+            <div class="response-answers">
+              <div class="answer-row">
+                <span class="answer-q">Overall satisfaction</span>
+                <span class="answer-v">3 / 5</span>
+              </div>
+              <div class="answer-row">
+                <span class="answer-q">Most used feature</span>
+                <span class="answer-null">— skipped</span>
+              </div>
+              <div class="answer-row">
+                <span class="answer-q">Open feedback</span>
+                <span class="answer-null">— skipped</span>
+              </div>
+            </div>
+            <div class="response-card-footer">
+              <span class="response-meta">key: product_feedback_q2 · 5 / 12 answered · v3</span>
+              <button class="response-expand-btn">View Full →</button>
+            </div>
+          </div>
+
+          <!-- Response 3 -->
+          <div class="response-card">
+            <div class="response-card-header">
+              <div>
+                <div class="response-survey-name">NPS Quick Check</div>
+                <div class="response-date">Skipped · 20 Apr 2026, 03:00 PM</div>
+              </div>
+              <span class="response-status-badge status-skipped">Skipped</span>
+            </div>
+            <div class="response-answers">
+              <div class="answer-row">
+                <span class="answer-q">All questions</span>
+                <span class="answer-null">— user dismissed survey</span>
+              </div>
+            </div>
+            <div class="response-card-footer">
+              <span class="response-meta">key: nps_quick_check · 0 / 3 answered · v1</span>
+              <button class="response-expand-btn">View Full →</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: info panels -->
+      <div>
+
+        <!-- Account details -->
+        <div class="panel-card fade-up-3">
+          <div class="panel-title">Account Details</div>
+          <div class="prop-row">
+            <span class="prop-label">Display Name</span>
+            <span class="prop-value" id="detail-name">Alice Harper</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Demo ID</span>
+            <span class="prop-value" style="font-family:monospace;font-size:11px;" id="detail-id">demo001</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Account Type</span>
+            <span class="prop-value" style="color:#fbbf24;">Demo / Tester</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Created</span>
+            <span class="prop-value">1 Jan 2026</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Last Active</span>
+            <span class="prop-value">Today, 10:32 AM</span>
+          </div>
+        </div>
+
+        <!-- Activity feed -->
+        <div class="panel-card fade-up-4">
+          <div class="panel-title">Recent Activity</div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#4ade80;"></div>
+              <div>
+                <div class="activity-text">Completed <strong>User Onboarding Survey</strong></div>
+                <div class="activity-time">Today · 10:32 AM</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#fbbf24;"></div>
+              <div>
+                <div class="activity-text">Started <strong>Product Feedback Q2</strong> — 5 of 12 answered</div>
+                <div class="activity-time">Today · 9:14 AM</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#9ca3af;"></div>
+              <div>
+                <div class="activity-text">Dismissed <strong>NPS Quick Check</strong></div>
+                <div class="activity-time">5 days ago · 3:00 PM</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--mid);"></div>
+              <div>
+                <div class="activity-text">Account created by developer</div>
+                <div class="activity-time">1 Jan 2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/js/test-popup.js"></script>
+<script>
+/* ── Resolve demo user from URL ── */
+const USERS = {
+  demo001: { name: 'Alice Harper', initials: 'AH', color: '#456882' },
+  demo002: { name: 'Ben Okafor',   initials: 'BO', color: '#234C6A' },
+  demo003: { name: 'Sara Neves',   initials: 'SN', color: '#1B3C53' },
+};
+
+function getDemoId() {
+  // Works for paths like /user/account/demo001
+  const parts = window.location.pathname.split('/');
+  return parts[parts.length - 1] || 'demo001';
+}
+
+function applyUser(demoId) {
+  const user = USERS[demoId] || USERS['demo001'];
+
+  // Avatar
+  const avatar = document.getElementById('hero-avatar');
+  avatar.textContent    = user.initials;
+  avatar.style.background = user.color;
+
+  // Name + id
+  document.getElementById('hero-name').textContent   = user.name;
+  document.getElementById('hero-id').textContent     = `${demoId} · /user/account/${demoId}`;
+  document.getElementById('detail-name').textContent = user.name;
+  document.getElementById('detail-id').textContent   = demoId;
+
+  document.title = `qu.dev – ${user.name} (Demo)`;
+}
+
+/* Simulate submit feedback */
+function simulateSubmit() {
+  const fb = document.createElement('div');
+  fb.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;background:#162d40;border:1px solid rgba(74,222,128,0.3);border-radius:10px;padding:14px 18px;font-size:13px;color:#4ade80;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,0.4);';
+  fb.textContent = '✓ Simulated submit logged to console';
+  document.body.appendChild(fb);
+  console.log('%c📋 Simulated Survey Submit', 'color:#D2C1B6;font-weight:bold;font-size:13px;');
+  console.log({ demoId: getDemoId(), action: 'simulate_submit', timestamp: new Date().toISOString() });
+  setTimeout(() => { fb.style.opacity='0'; fb.style.transition='opacity 0.4s'; setTimeout(()=>fb.remove(),400); }, 2600);
+}
+
+function resetResponses() {
+  if (!confirm('Reset all simulated responses for this demo user?')) return;
+  document.getElementById('stat-completed').textContent  = '0';
+  document.getElementById('stat-questions').textContent  = '0';
+  document.getElementById('response-list').innerHTML =
+    '<div style="text-align:center;padding:48px 24px;color:var(--text-dim);font-size:14px;">No responses yet — click <strong style=\'color:var(--warm)\'>Simulate Submit</strong> to generate one.</div>';
+  console.log('%c🔄 Responses reset for', 'color:#fbbf24;font-weight:bold;', getDemoId());
+}
+
+function switchUser() {
+  history.back();
+}
+
+/* Init */
+applyUser(getDemoId());
+</script>
+</body>
+</html>

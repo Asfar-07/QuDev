@@ -672,6 +672,7 @@
 
     function changeVersion(selectElement) {
         const selectedVersion = selectElement.value;
+        const surveyId = document.getElementById('survey-id').textContent;
         // Handle version change logic here
-        window.location.href = `/questions/user_dashboard/${selectedVersion}`;
+        window.location.href = `/questions/${surveyId}/${selectedVersion}`;
     }

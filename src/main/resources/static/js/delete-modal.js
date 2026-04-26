@@ -1,14 +1,3 @@
-/* ================================================
-   delete-modal.js
-   Delete Confirmation Modal — qu.dev
-
-   HOW TO USE:
-   1. Add <link rel="stylesheet" href="delete-modal.css"> in your <head>
-   2. Paste delete-modal.html anywhere inside your <body>
-   3. Add <script src="delete-modal.js"></script> before </body>
-   4. On your delete button call:
-        openDeleteModal(buttonElement, 'Survey Name')
-   ================================================ */
 
 // Holds a reference to the card element being targeted for deletion
 let targetCard = null;
@@ -36,10 +25,7 @@ function openDeleteModal(btn, name) {
   document.body.style.overflow = 'hidden';
 }
 
-/**
- * Closes the delete modal and resets state.
- * Called by the Cancel button and the Escape key listener.
- */
+
 function closeDeleteModal() {
   document.getElementById('delete-modal').classList.remove('open');
   document.body.style.overflow = '';
@@ -58,15 +44,7 @@ function handleOverlayClick(e) {
   }
 }
 
-/**
- * Confirms deletion:
- * - Animates the card out (fade + scale down)
- * - Removes the card from the DOM after animation completes
- * - Closes the modal
- *
- * Replace the contents of this function with your real API delete call,
- * e.g.:  fetch('/api/surveys/' + surveyId, { method: 'DELETE' })
- */
+
 async function confirmDelete(btn) {
   if (!targetCard) return;
   btn.disabled = true; 

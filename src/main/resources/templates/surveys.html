@@ -6,9 +6,73 @@
     <title>qu.dev – Surveys</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/surveys.css" />
+      <link rel="stylesheet" href="/css/test-popup.css" />
     <link rel="stylesheet" href="/css/delete-modal.css" />
   </head>
   <body>
+      <div id="test-popup" class="test-popup">
+
+    <!-- Header -->
+    <div class="test-popup-header">
+      <span>Test as User</span>
+      <button class="test-popup-close" onclick="closeTestPopup()">×</button>
+    </div>
+
+    <!-- Hint -->
+    <p class="test-popup-hint">
+      Select a demo account to preview the survey experience.
+    </p>
+
+    <!-- User list -->
+    <div class="test-user-list">
+
+      <div class="test-user-card" onclick="selectTestUser(this, '11111', 'Alice Harper', 'AH', '#456882')">
+        <div class="test-user-dp" style="background: #456882;">AH</div>
+        <div class="test-user-info">
+          <div class="test-user-name">Alice Harper</div>
+          <div class="test-user-id">demo001</div>
+        </div>
+        <div class="test-user-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="test-user-card" onclick="selectTestUser(this, '22222', 'Ben Okafor', 'BO', '#234C6A')">
+        <div class="test-user-dp" style="background: #234C6A;">BO</div>
+        <div class="test-user-info">
+          <div class="test-user-name">Ben Okafor</div>
+          <div class="test-user-id">demo002</div>
+        </div>
+        <div class="test-user-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="test-user-card" onclick="selectTestUser(this, '333333', 'Sara Neves', 'SN', '#1B3C53')">
+        <div class="test-user-dp" style="background: #1B3C53; border: 1px solid rgba(210,193,182,0.2);">SN</div>
+        <div class="test-user-info">
+          <div class="test-user-name">Sara Neves</div>
+          <div class="test-user-id">demo003</div>
+        </div>
+        <div class="test-user-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Confirm button -->
+    <button class="test-go-btn" id="test-go-btn" onclick="goTestUser()" disabled>
+      Open as this user →
+    </button>
+
+  </div>
     <div class="app">
       <!-- SIDEBAR -->
       <nav class="sidebar">
@@ -57,36 +121,24 @@
           <span>Survey</span>
           <div class="tooltip">Surveys</div>
         </a>
-        <a href="/surveys" class="nav-item">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
-            <line x1="12" y1="17" x2="12.01" y2="17" />
-          </svg>
-          <span>Q&amp;A</span>
-          <div class="tooltip">Questions</div>
-        </a>
+        <a href="/survey-overview" class="nav-item ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        <span>P&amp;D</span>
+        <div class="tooltip">Print</div>
+      </a>
         <div class="sidebar-bottom">
-          <a href="/" class="nav-item">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <circle cx="12" cy="12" r="3" />
-              <path
-                d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"
-              />
-            </svg>
-            <span>Test</span>
-            <div class="tooltip">Testing</div>
-          </a>
+          <button class="nav-item" id="test-nav-btn" onclick="toggleTestPopup(event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" />
+          </svg>
+          <span>Test</span>
+          <div class="tooltip">Testing</div>
+        </button>
           <a href="/documentation" class="nav-item">
             <svg
               viewBox="0 0 24 24"
@@ -331,6 +383,7 @@
       </div>
     </div>
     <script src="/js/delete-modal.js"></script>
+    <script src="/js/test-popup.js"></script>
     <script>
       function disableButton(form) {
         const btn = form.querySelector("button[type='submit']");

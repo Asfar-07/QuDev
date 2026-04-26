@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
 <head>
   <meta charset="UTF-8" />
@@ -28,7 +28,7 @@
     <!-- User list -->
     <div class="test-user-list">
 
-      <div class="test-user-card" onclick="selectTestUser(this, 'demo001', 'Alice Harper', 'AH', '#456882')">
+      <div class="test-user-card" onclick="selectTestUser(this, '11111', 'Alice Harper', 'AH', '#456882')">
         <div class="test-user-dp" style="background: #456882;">AH</div>
         <div class="test-user-info">
           <div class="test-user-name">Alice Harper</div>
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="test-user-card" onclick="selectTestUser(this, 'demo002', 'Ben Okafor', 'BO', '#234C6A')">
+      <div class="test-user-card" onclick="selectTestUser(this, '22222', 'Ben Okafor', 'BO', '#234C6A')">
         <div class="test-user-dp" style="background: #234C6A;">BO</div>
         <div class="test-user-info">
           <div class="test-user-name">Ben Okafor</div>
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <div class="test-user-card" onclick="selectTestUser(this, 'demo003', 'Sara Neves', 'SN', '#1B3C53')">
+      <div class="test-user-card" onclick="selectTestUser(this, '333333', 'Sara Neves', 'SN', '#1B3C53')">
         <div class="test-user-dp" style="background: #1B3C53; border: 1px solid rgba(210,193,182,0.2);">SN</div>
         <div class="test-user-info">
           <div class="test-user-name">Sara Neves</div>
@@ -109,21 +109,25 @@
         <span>Survey</span>
         <div class="tooltip">Surveys</div>
       </a>
-      <a href="/surveys" class="nav-item active">
+      <a href="/survey-overview" class="nav-item ">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10" />
           <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
           <line x1="12" y1="17" x2="12.01" y2="17" />
         </svg>
-        <span>Q&amp;A</span>
-        <div class="tooltip">Questions</div>
+        <span>P&amp;D</span>
+        <div class="tooltip">Print</div>
       </a>
       <div class="sidebar-bottom">
         <button class="nav-item" id="test-nav-btn" onclick="toggleTestPopup(event)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
-          <span>Test</span><div class="tooltip">Testing</div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" />
+          </svg>
+          <span>Test</span>
+          <div class="tooltip">Testing</div>
         </button>
-        <a href="#" class="nav-item">
+        <a href="/documentation" class="nav-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10" />
             <path d="M12 8v4m0 4h.01" />
@@ -138,6 +142,7 @@
     <main class="main">
       <div class="page-header fade-up">
         <h1>Question Builder</h1>
+        <span th:text="${quList.versionId}"></span>
         <p id="page-subtitle">User Onboarding Survey · Add and manage your questions</p>
       </div>
 
@@ -264,7 +269,7 @@
                     <span class="q-meta-pill">
                       options: <span th:text="${q.options != null ? #lists.size(q.options) : 'null'}"></span>
                     </span>
-                     <span class="q-meta-pill">Id: <span th:text="${q.id}" class="q-id-display"></span></span>
+                    <span class="q-meta-pill">Id: <span th:text="${q.id}" class="q-id-display"></span></span>
                   </div>
 
                   <button class="q-edit-btn" onclick="openEditor()">
@@ -286,6 +291,7 @@
               Survey Summary
               <span class="count-badge" id="q-count">0 Qs</span>
             </div>
+            <span th:text="${survey.key}" id="survey-id"></span>
             <div class="prop-row">
               <span class="prop-label">Name</span>
               <span class="prop-value" id="sd-name-display" th:text="${survey.name}"></span>
@@ -313,8 +319,10 @@
           <div class="panel-card">
             <div class="panel-title">Survey Version</div>
             <select class="input-field select-field version-select" onchange="changeVersion(this)" id="survey-version">
-              <option th:each=" version : ${versionList}" th:value="${version.id}"
-                th:text="${version.versionName}"></option>
+
+              <option th:each="version : ${versionList}" th:value="${version.id}" th:text="${version.versionName}"
+                th:selected="${version.id == quList.versionId}">
+              </option>
 
             </select>
             <button class="panel-btn panel-btn-primary" onclick="openEditor()">
@@ -332,7 +340,7 @@
   </div>
 
 
-     <!-- SURVEY DETAIL EDIT MODAL -->
+  <!-- SURVEY DETAIL EDIT MODAL -->
 
   <div class="sd-overlay" id="sd-overlay" onclick="handleSdOverlayClick(event)">
     <div class="sd-modal">
@@ -366,7 +374,7 @@
   </div>
 
 
-     <!-- BULK EDITOR SLIDE-IN -->
+  <!-- BULK EDITOR SLIDE-IN -->
 
   <div class="editor-overlay" id="editor-overlay" onclick="handleEditorOverlayClick(event)">
     <div class="editor-panel">
