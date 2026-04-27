@@ -91,7 +91,7 @@ surveys
 
 ## 📚 Documentation
 
-Full documentation is available in the [`/docs`](./docs) folder, including:
+Full documentation is available in the [`/docs`](https://github.com/Asfar-07/qu.dev/blob/main/qu.devTooldocumentation.pdf) folder, including:
 
 - Setup guide
 - Database schema explanation
