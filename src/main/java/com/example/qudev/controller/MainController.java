@@ -28,9 +28,7 @@ public class MainController {
     ResponseService responseService;
     @Autowired
     UserSessionService userSessionService;
-
-
-
+    
     @Value("${spring.datasource.url}")
     private String dbUrl;
 
@@ -71,8 +69,10 @@ public class MainController {
     }
 
     @GetMapping("/demo/user/account/{userId}")
-    public String Testing(@PathVariable long userId){
+    public String Testing(@PathVariable long userId, Model model){
 
+        model.addAttribute("userId",userId);
+        model.addAttribute("surveys",surveyService.listSurvey());
         return "admin-test";
     }
 

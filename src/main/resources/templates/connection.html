@@ -6,72 +6,8 @@
 <title>qu.dev – Database Connection</title>
 <link rel="stylesheet" href="/css/styles.css" />
 <link rel="stylesheet" href="/css/connection.css" />
-<link rel="stylesheet" href="/css/test-popup.css" />
 </head>
 <body>
-    <div id="test-popup" class="test-popup">
-
-    <!-- Header -->
-    <div class="test-popup-header">
-      <span>Test as User</span>
-      <button class="test-popup-close" onclick="closeTestPopup()">×</button>
-    </div>
-
-    <!-- Hint -->
-    <p class="test-popup-hint">
-      Select a demo account to preview the survey experience.
-    </p>
-
-    <!-- User list -->
-    <div class="test-user-list">
-
-      <div class="test-user-card" onclick="selectTestUser(this, '11111', 'Alice Harper', 'AH', '#456882')">
-        <div class="test-user-dp" style="background: #456882;">AH</div>
-        <div class="test-user-info">
-          <div class="test-user-name">Alice Harper</div>
-          <div class="test-user-id">demo001</div>
-        </div>
-        <div class="test-user-check">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
-      </div>
-
-      <div class="test-user-card" onclick="selectTestUser(this, '22222', 'Ben Okafor', 'BO', '#234C6A')">
-        <div class="test-user-dp" style="background: #234C6A;">BO</div>
-        <div class="test-user-info">
-          <div class="test-user-name">Ben Okafor</div>
-          <div class="test-user-id">demo002</div>
-        </div>
-        <div class="test-user-check">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
-      </div>
-
-      <div class="test-user-card" onclick="selectTestUser(this, '333333', 'Sara Neves', 'SN', '#1B3C53')">
-        <div class="test-user-dp" style="background: #1B3C53; border: 1px solid rgba(210,193,182,0.2);">SN</div>
-        <div class="test-user-info">
-          <div class="test-user-name">Sara Neves</div>
-          <div class="test-user-id">demo003</div>
-        </div>
-        <div class="test-user-check">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Confirm button -->
-    <button class="test-go-btn" id="test-go-btn" onclick="goTestUser()" disabled>
-      Open as this user →
-    </button>
-
-  </div>
 <div class="app">
 
   <!-- SIDEBAR -->

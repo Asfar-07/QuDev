@@ -27,7 +27,7 @@ public class UserSurveySession {
 
     private LocalDateTime startedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ver_id", nullable = false)
     private SurveyVersion surveyVersion;
 
