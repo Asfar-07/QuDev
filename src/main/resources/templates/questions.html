@@ -256,8 +256,8 @@
                 <!-- Options -->
                 <div class="q-card-options" th:if="${q.options != null}">
                   <span class="q-option" th:each="o : ${q.options}">
-                    <span th:text="${o.label}"></span>
-                    <span style="opacity:.38;font-size:10px;" th:text="${o.key}"></span>
+                    <span th:text="${o.key}"></span>
+                    <span style="opacity:.38;font-size:10px;" th:text="${o.label}"></span>
                   </span>
                 </div>
 

@@ -1,15 +1,17 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>qu.dev – Test Account</title>
-<link rel="stylesheet" href="/css/styles.css"/>
-<link rel="stylesheet" href="/css/admin-test.css">
-<link rel="stylesheet" href="/css/test-popup.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qu.dev – Test Account</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/admin-test.css">
+  <link rel="stylesheet" href="/css/test-popup.css" />
 </head>
+
 <body>
-    <div id="test-popup" class="test-popup">
+  <div id="test-popup" class="test-popup">
 
     <!-- Header -->
     <div class="test-popup-header">
@@ -29,7 +31,7 @@
         <div class="test-user-dp" style="background: #456882;">AH</div>
         <div class="test-user-info">
           <div class="test-user-name">Alice Harper</div>
-          <div class="test-user-id">dem011111</div>
+          <div class="test-user-id">demo11111</div>
         </div>
         <div class="test-user-check">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
@@ -55,7 +57,7 @@
         <div class="test-user-dp" style="background: #1B3C53; border: 1px solid rgba(210,193,182,0.2);">SN</div>
         <div class="test-user-info">
           <div class="test-user-name">Sara Neves</div>
-          <div class="test-user-id">dem33333</div>
+          <div class="test-user-id">dem033333</div>
         </div>
         <div class="test-user-check">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
@@ -72,23 +74,40 @@
     </button>
 
   </div>
-<div class="app">
-  <!-- SIDEBAR -->
-  <nav class="sidebar">
-    <div class="sidebar-logo">qu</div>
-    <a href="/" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-      <span>Home</span><div class="tooltip">Home</div>
-    </a>
-    <a href="/connection" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      <span>Conn.</span><div class="tooltip">Connection</div>
-    </a>
-    <a href="/surveys" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      <span>Survey</span><div class="tooltip">Surveys</div>
-    </a>
-    <a href="/survey-overview" class="nav-item active">
+  <div class="app">
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="sidebar-logo">qu</div>
+      <a href="/" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <polyline points="9,22 9,12 15,12 15,22" />
+        </svg>
+        <span>Home</span>
+        <div class="tooltip">Home</div>
+      </a>
+      <a href="/connection" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="18" cy="5" r="3" />
+          <circle cx="6" cy="12" r="3" />
+          <circle cx="18" cy="19" r="3" />
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+        </svg>
+        <span>Conn.</span>
+        <div class="tooltip">Connection</div>
+      </a>
+      <a href="/surveys" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+        </svg>
+        <span>Survey</span>
+        <div class="tooltip">Surveys</div>
+      </a>
+      <a href="/survey-overview" class="nav-item active">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10" />
           <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
@@ -97,8 +116,8 @@
         <span>P&amp;D</span>
         <div class="tooltip">Print</div>
       </a>
-    <div class="sidebar-bottom">
-      <button class="nav-item" id="test-nav-btn" onclick="toggleTestPopup(event)">
+      <div class="sidebar-bottom">
+        <button class="nav-item" id="test-nav-btn" onclick="toggleTestPopup(event)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="3" />
             <path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" />
@@ -106,191 +125,214 @@
           <span>Test</span>
           <div class="tooltip">Testing</div>
         </button>
-      <a href="/documentation" class="nav-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
-        <span>Help</span><div class="tooltip">Help</div>
-      </a>
-    </div>
-  </nav>
+        <a href="/documentation" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4m0 4h.01" />
+          </svg>
+          <span>Help</span>
+          <div class="tooltip">Help</div>
+        </a>
+      </div>
+    </nav>
 
-  <main class="main">
- 
-    <!-- Demo banner -->
-    <div class="demo-banner fade-up">
-      <div class="demo-banner-left">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <span>You are viewing a <strong>demo account</strong> — data shown is simulated for testing only.</span>
-      </div>
-      <div class="demo-banner-right">
-        <button class="banner-btn banner-btn-ghost" onclick="history.back()">Switch User</button>
-        <button class="banner-btn banner-btn-solid" onclick="history.back()">← Back to Builder</button>
-      </div>
-    </div>
- 
-    <!-- Profile hero -->
-    <div class="profile-hero fade-up-2">
-      <div class="profile-avatar" id="hero-avatar">AH</div>
-      <div class="profile-info">
-        <div class="profile-name" id="hero-name">Alice Harper</div>
-        <div class="profile-id" id="hero-id">demo001 · /user/account/demo001</div>
-        <div class="profile-tags">
-          <span class="profile-tag tag-demo">Demo</span>
-          <span class="profile-tag tag-tester">Test Account</span>
+    <main class="main">
+
+      <!-- Demo banner -->
+      <div class="demo-banner fade-up">
+        <div class="demo-banner-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          <span>You are viewing a <strong>demo account</strong> — data shown is simulated for testing only.</span>
+        </div>
+        <div class="demo-banner-right">
+          <button class="banner-btn banner-btn-ghost" onclick="history.back()">Switch User</button>
+          <button class="banner-btn banner-btn-solid" onclick="history.back()">← Back to Builder</button>
         </div>
       </div>
-      <div class="profile-hero-actions">
-        <button class="btn btn-secondary" style="font-size:12px;padding:8px 16px;" onclick="resetResponses()">Reset Responses</button>
+
+      <!-- Profile hero -->
+      <div class="profile-hero fade-up-2">
+        <div class="profile-avatar" id="hero-avatar">AH</div>
+        <div class="profile-info">
+          <div class="profile-name" id="hero-name">Alice Harper</div>
+          <div class="profile-id" id="hero-id">demo001 · /user/account/demo001</div>
+          <div class="profile-tags">
+            <span class="profile-tag tag-demo">Demo</span>
+            <span class="profile-tag tag-tester">Test Account</span>
+          </div>
+        </div>
+        <div class="profile-hero-actions">
+          <button class="btn btn-secondary" style="font-size:12px;padding:8px 16px;" onclick="resetResponses()">Reset
+            Responses</button>
+        </div>
       </div>
-    </div>
- 
-    <!-- Stats -->
-    <div class="stats-row fade-up-2">
-      <div class="stat-card">
-        <div class="stat-val" id="stat-surveys">3</div>
-        <div class="stat-lbl">Surveys Seen</div>
+
+      <!-- Stats -->
+      <div class="stats-row fade-up-2">
+        <div class="stat-card">
+          <div class="stat-val" id="stat-surveys" th:text="${surveys.size()}">3</div>
+          <div class="stat-lbl">Surveys Seen</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-completed">-</div>
+          <div class="stat-lbl">Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-pending">-</div>
+          <div class="stat-lbl">Pending</div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-val" id="stat-completed">1</div>
-        <div class="stat-lbl">Completed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val" id="stat-pending">2</div>
-        <div class="stat-lbl">Pending</div>
-      </div>
-    </div>
- 
-    <!-- Content grid -->
-    <div class="content-grid">
- 
-      <!-- LEFT: survey list -->
-      <div>
-        <div class="section-title fade-up-3">Surveys</div>
-        <div class="response-list fade-up-3" id="response-list">
- 
-          <!-- Survey 1 — Completed -->
-          <div class="response-card" th:each="survey : ${surveys}">
-            <div class="response-card-body">
-              <div class="survey-info">
-                <div class="survey-name" th:text="${survey.name}"></div>
-                <div class="survey-meta-row">
-                  <span class="survey-key" th:text="${survey.key}"></span>
-                  <span class="survey-version" th:text="${survey.versions[survey.versions.size() - 1].versionName}"></span>
-                </div>
-                <!-- <div class="survey-date">
+
+      <!-- Content grid -->
+      <div class="content-grid">
+
+        <!-- LEFT: survey list -->
+        <div>
+          <div class="section-title fade-up-3">Surveys</div>
+          <div class="response-list fade-up-3" id="response-list">
+
+            <!-- Survey 1 — Completed -->
+            <div class="response-card" th:each="survey : ${surveys}">
+              <div class="response-card-body">
+                <div class="survey-info">
+                  <div class="survey-name" th:text="${survey.name}"></div>
+                  <div class="survey-meta-row">
+                    <span class="survey-key" th:text="${survey.key}"></span>
+                    <span class="survey-version"
+                      th:text="${survey.versions[survey.versions.size() - 1].versionName}"></span>
+                  </div>
+                  <!-- <div class="survey-date">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                   Submitted · 24 Apr 2026, 10:32 AM
                 </div> -->
+                </div>
+                <div class="survey-right">
+                  <span class="status-badge status-partial" th:if="${#lists.isEmpty(survey.versions[survey.versions.size()-1].sessions)
+                          or #lists.isEmpty(
+                              survey.versions[survey.versions.size()-1].sessions.?[
+                                  userId == __${userId}__ and status == 'Completed'
+                              ]
+                          )}">
+                    Pending
+                  </span>
+                  <span class="status-badge status-complete" th:unless="${#lists.isEmpty(
+                      survey.versions[survey.versions.size()-1].sessions.?[
+                          userId == __${userId}__ and status == 'Completed'
+                      ]
+                  )}" th:text="${!#lists.isEmpty(
+                                                      survey.versions[survey.versions.size()-1].sessions.?[
+                                                          userId == __${userId}__ and status == 'Completed'
+                                                      ]
+                                                  ) ? 'Complete' : 'Pending'}">
+                  </span>
+                  <button class="attend-btn" th:data-key="${survey.key}" th:data-version="${survey.versions[survey.versions.size()-1].id}"
+                    onclick="attendSurvey(this.dataset.key, this.dataset.version)" th:if="${#lists.isEmpty(survey.versions[survey.versions.size()-1].sessions)
+                              or #lists.isEmpty(
+                                  survey.versions[survey.versions.size()-1].sessions.?[
+                                      userId == __${userId}__ and status == 'Completed'
+                                  ]
+                              )}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 8 12 12 14 14" />
+                    </svg>
+                    Attend
+                  </button>
+                </div>
               </div>
-              <div class="survey-right">
-                <span class="status-badge status-partial"
-                  th:if="${#lists.isEmpty(survey.versions[survey.versions.size()-1].sessions)}">
-                  Pending
-                </span>
-                <span class="status-badge status-complete"
-                  th:unless="${#lists.isEmpty(survey.versions[survey.versions.size()-1].sessions)}" th:text="${#lists.contains(
-                                      survey.versions[survey.versions.size()-1].sessions.![userId],
-                                      userId
-                                  ) ? 'Complete' : 'Pending'}">
-                </span>
-                <button class="attend-btn" th:data-key="${survey.key}" th:data-version="${survey.versions[survey.versions.size()-1].id}" onclick="attendSurvey(this.dataset.key , this.dataset.version)" th:if="${#lists.isEmpty(survey.versions[survey.versions.size()-1].sessions)
-                            or !#lists.contains(
-                                survey.versions[survey.versions.size()-1].sessions.![userId],
-                                userId
-                            )}">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 8 12 12 14 14" />
-                  </svg>
-                  Attend
-                </button>
-              </div>
-              </div>
-          </div>
- 
-        </div>
-      </div>
- 
-      <!-- RIGHT: account details only -->
-      <div>
-        <div class="panel-card fade-up-3">
-          <div class="panel-title">Account Details</div>
-          <div class="prop-row">
-            <span class="prop-label">Display Name</span>
-            <span class="prop-value" id="detail-name">Alice Harper</span>
-          </div>
-          <div class="prop-row">
-            <span class="prop-label">Demo ID</span>
-            <span class="prop-value" style="font-family:monospace;font-size:11px;" id="detail-id">demo001</span>
-          </div>
-          <div class="prop-row">
-            <span class="prop-label">Account Type</span>
-            <span class="prop-value" style="color:#fbbf24;">Demo / Tester</span>
-          </div>
-          <div class="prop-row">
-            <span class="prop-label">Created</span>
-            <span class="prop-value">1 Jan 2026</span>
-          </div>
-          <div class="prop-row">
-            <span class="prop-label">Last Active</span>
-            <span class="prop-value">Today, 10:32 AM</span>
-          </div>
-        </div>
-      </div>
- 
-    </div>
-  </main>
-</div>
-<script src="/js/test-popup.js"></script>
-<script>
-/* ── Resolve demo user from URL ── */
-const USERS = {
-  demo11111: {id:11111, name: 'Alice Harper', initials: 'AH', color: '#456882' },
-  demo22222: {id:22222, name: 'Ben Okafor',   initials: 'BO', color: '#234C6A' },
-  demo33333: {id:33333, name: 'Sara Neves',   initials: 'SN', color: '#1B3C53' },
-};
- 
-function getDemoId() {
-  const parts = window.location.pathname.split('/');
-  const last  = "demo" +parts[parts.length - 1];
-  return USERS[last] ? last : 'demo001';
-}
- 
-function applyUser(demoId) {
+            </div>
 
-  const user = USERS[demoId] || USERS['demo001'];
-  const avatar = document.getElementById('hero-avatar');
-  avatar.textContent       = user.initials;
-  avatar.style.background  = user.color;
-  document.getElementById('hero-name').textContent   = user.name;
-  document.getElementById('hero-id').textContent     = `${demoId} · /user/account/${demoId}`;
-  document.getElementById('detail-name').textContent = user.name;
-  document.getElementById('detail-id').textContent   = demoId;
-  document.title = `qu.dev – ${user.name} (Demo)`;
-}
- 
-function attendSurvey(surveyKey, versionId) {
-  console.log(`%c▶ Attend survey: ${surveyKey}`, 'color:#D2C1B6;font-weight:bold;');
-  console.log({ demoId: getDemoId(), action: 'attend', surveyKey, timestamp: new Date().toISOString() });
- 
-  const toast = document.createElement('div');
-  toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;background:#162d40;border:1px solid rgba(69,104,130,0.4);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,0.4);display:flex;align-items:center;gap:10px;';
-  toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg><div><div style="font-weight:600;color:#eee8e3;">Opening survey…</div><div style="font-size:11px;color:#9aafbe;font-family:monospace;">${surveyKey}</div></div>`;
-  document.body.appendChild(toast);
-  setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.4s'; 
-  window.location.href=`/testing/${surveyKey}/${versionId}/demo/user/${ window.location.pathname.split('/')[window.location.pathname.split('/').length -1]}`; setTimeout(() => toast.remove(), 400); }, 1000);
-}
- 
-function resetResponses() {
-  if (!confirm('Reset all simulated responses for this demo user?')) return;
-  document.getElementById('stat-completed').textContent = '0';
-  document.getElementById('stat-pending').textContent   = '0';
-  document.getElementById('stat-surveys').textContent   = '0';
-  document.getElementById('response-list').innerHTML    =
-    '<div style="text-align:center;padding:48px 24px;color:var(--text-dim);font-size:14px;">No survey activity yet for this demo account.</div>';
-  console.log('%c🔄 Responses reset for', 'color:#fbbf24;font-weight:bold;', getDemoId());
-}
- 
-applyUser(getDemoId());
-</script>
+          </div>
+        </div>
+
+        <!-- RIGHT: account details only -->
+        <div>
+          <div class="panel-card fade-up-3">
+            <div class="panel-title">Account Details</div>
+            <div class="prop-row">
+              <span class="prop-label">Display Name</span>
+              <span class="prop-value" id="detail-name">Alice Harper</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-label">Demo ID</span>
+              <span class="prop-value" style="font-family:monospace;font-size:11px;" id="detail-id">demo001</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-label">Account Type</span>
+              <span class="prop-value" style="color:#fbbf24;">Demo / Tester</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-label">Created</span>
+              <span class="prop-value">1 Jan 2026</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-label">Last Active</span>
+              <span class="prop-value">Today, 10:32 AM</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+  <script src="/js/test-popup.js"></script>
+  <script>
+    /* ── Resolve demo user from URL ── */
+    const USERS = {
+      demo11111: { id: 11111, name: 'Alice Harper', initials: 'AH', color: '#456882' },
+      demo22222: { id: 22222, name: 'Ben Okafor', initials: 'BO', color: '#234C6A' },
+      demo33333: { id: 33333, name: 'Sara Neves', initials: 'SN', color: '#1B3C53' },
+    };
+
+    function getDemoId() {
+      const parts = window.location.pathname.split('/');
+      const last = "demo" + parts[parts.length - 1];
+      return USERS[last] ? last : 'demo001';
+    }
+
+    function applyUser(demoId) {
+
+      const user = USERS[demoId] || USERS['demo001'];
+      const avatar = document.getElementById('hero-avatar');
+      avatar.textContent = user.initials;
+      avatar.style.background = user.color;
+      document.getElementById('hero-name').textContent = user.name;
+      document.getElementById('hero-id').textContent = `${demoId} · /user/account/${demoId}`;
+      document.getElementById('detail-name').textContent = user.name;
+      document.getElementById('detail-id').textContent = demoId;
+      document.title = `qu.dev – ${user.name} (Demo)`;
+    }
+
+    function attendSurvey(surveyKey, versionId) {
+      console.log(`%c▶ Attend survey: ${surveyKey}`, 'color:#D2C1B6;font-weight:bold;');
+      console.log({ demoId: getDemoId(), action: 'attend', surveyKey, timestamp: new Date().toISOString() });
+
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;background:#162d40;border:1px solid rgba(69,104,130,0.4);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,0.4);display:flex;align-items:center;gap:10px;';
+      toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg><div><div style="font-weight:600;color:#eee8e3;">Opening survey…</div><div style="font-size:11px;color:#9aafbe;font-family:monospace;">${surveyKey}</div></div>`;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0'; toast.style.transition = 'opacity 0.4s';
+        window.location.href = `/testing/${surveyKey}/${versionId}/demo/user/${window.location.pathname.split('/')[window.location.pathname.split('/').length - 1]}`; setTimeout(() => toast.remove(), 400);
+      }, 1000);
+    }
+
+    function resetResponses() {
+      if (!confirm('Reset all simulated responses for this demo user?')) return;
+      document.getElementById('stat-completed').textContent = '0';
+      document.getElementById('stat-pending').textContent = '0';
+      document.getElementById('stat-surveys').textContent = '0';
+      document.getElementById('response-list').innerHTML =
+        '<div style="text-align:center;padding:48px 24px;color:var(--text-dim);font-size:14px;">No survey activity yet for this demo account.</div>';
+      console.log('%c🔄 Responses reset for', 'color:#fbbf24;font-weight:bold;', getDemoId());
+    }
+
+    applyUser(getDemoId());
+  </script>
 </body>
+
 </html>

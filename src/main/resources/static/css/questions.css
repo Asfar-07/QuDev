@@ -124,7 +124,7 @@
 .editor-body { flex:1; overflow-y:auto; padding:24px 28px; display:flex; flex-direction:column; gap:14px; }
 
 /* ── EQ-CARD ── */
-.eq-card { border:1px solid var(--border); border-radius:10px; background:rgba(35,76,106,0.2); transition:border-color 0.2s; cursor:grab; }
+.eq-card {  border:1px solid var(--border); border-radius:10px; background:rgba(35,76,106,0.2); transition:border-color 0.2s; cursor:grab; }
 .eq-card:active { cursor:grabbing; }
 .eq-card.dragging { opacity:0.35; border-style:dashed; border-color:var(--mid); }
 .eq-card.drag-over { border-color:var(--warm); background:rgba(210,193,182,0.04); }

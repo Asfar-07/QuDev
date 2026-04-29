@@ -20,4 +20,11 @@ public class VersionServiceIMP implements VersionService {
     public List<SurveyVersion> listVersion() {
         return surveyVersionRepo.findAll();
     }
+
+    @Override
+    public SurveyVersion getVersion(long versionId) {
+
+        return surveyVersionRepo.findById(versionId).orElseThrow(() -> new RuntimeException("Version not found"));
+    }
+
 }

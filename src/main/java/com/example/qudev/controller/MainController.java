@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -28,7 +29,7 @@ public class MainController {
     ResponseService responseService;
     @Autowired
     UserSessionService userSessionService;
-    
+
     @Value("${spring.datasource.url}")
     private String dbUrl;
 
@@ -69,12 +70,27 @@ public class MainController {
     }
 
     @GetMapping("/demo/user/account/{userId}")
-    public String Testing(@PathVariable long userId, Model model){
+    public String TestingUsers(@PathVariable long userId, Model model){
 
         model.addAttribute("userId",userId);
         model.addAttribute("surveys",surveyService.listSurvey());
         return "admin-test";
     }
 
+    @GetMapping("/testing/{surveyKey}/{versionId}/demo/user/{userId}")
+    public String TestingSurveys(@PathVariable String surveyKey,
+                                 @PathVariable long versionId,
+                                 @PathVariable long userId, Model model){
 
+        SurveyVersion version = versionService.getVersion(versionId);
+        Set<Question> questions = version.getQuestions();
+        UserSurveySession userSession = userSessionService.addUserSession(userId,version);
+        if(userSession == null){
+            return "redirect:/demo/user/account/" + userId;
+        }
+        model.addAttribute("sessionId",userSession.getId());
+        model.addAttribute("questions",questions);
+        model.addAttribute("surveyVersionId", versionId);
+        return "survey-testing";
+    }
 }

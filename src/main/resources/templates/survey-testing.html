@@ -1,0 +1,450 @@
+<!-- templates/survey-test.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survey Test</title>
+
+<style>
+:root{
+  --bg:#0f2132;
+  --navy:#1B3C53;
+  --blue:#234C6A;
+  --mid:#456882;
+  --warm:#D2C1B6;
+  --warm-dim:#a8998f;
+  --text:#eee8e3;
+  --text-dim:#9aafbe;
+  --border:rgba(210,193,182,0.15);
+  --card:rgba(35,76,106,0.45);
+  --glow:rgba(69,104,130,0.35);
+  --radius:10px;
+  --trans:.22s ease;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,var(--bg),var(--navy));
+    color:var(--text);
+    padding:40px;
+}
+
+.container{
+    max-width:950px;
+    margin:auto;
+}
+
+.progress-box{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.progress-box h2{
+    color:var(--warm);
+    margin-bottom:12px;
+}
+
+.progress{
+    width:70%;
+    height:10px;
+    background:rgba(255,255,255,.08);
+    border-radius:50px;
+    margin:auto;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--warm),var(--mid));
+    transition:.3s;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    backdrop-filter:blur(10px);
+    padding:30px;
+    border-radius:var(--radius);
+}
+
+.question-title{
+    color:var(--warm);
+    font-size:28px;
+    margin-bottom:30px;
+}
+
+.options{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;
+}
+
+.option-box{
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    padding:18px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    text-align:center;
+    transition:var(--trans);
+}
+
+.option-box:hover{
+    background:var(--blue);
+}
+
+.option-box input{
+    margin-right:8px;
+}
+
+.text-answer{
+    width:100%;
+    padding:14px;
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.04);
+    color:var(--text);
+}
+
+.text-answer::placeholder{
+    color:var(--text-dim);
+}
+
+.scale-box{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.scale-box label{
+    padding:12px 16px;
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.04);
+    cursor:pointer;
+}
+
+.scale-box label:hover{
+    background:var(--blue);
+}
+
+.btn-group{
+    margin-top:25px;
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+}
+
+button{
+    padding:12px 24px;
+    border:none;
+    border-radius:var(--radius);
+    cursor:pointer;
+    font-size:16px;
+    transition:var(--trans);
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+#prevBtn,#skipBtn{
+    background:rgba(255,255,255,.06);
+    color:var(--text);
+}
+
+#nextBtn,#submitBtn{
+    background:var(--warm);
+    color:#111;
+    font-weight:600;
+}
+
+.question-block{
+    animation:fade .25s ease;
+}
+
+@keyframes fade{
+    from{opacity:0;transform:translateY(12px);}
+    to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="progress-box">
+        <h2>Survey Progress</h2>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <form id="surveyForm">
+
+        <!-- hidden values -->
+        <input type="hidden" name="sessionId" th:value="${sessionId}">
+        <input type="hidden" name="surveyVersionId" th:value="${surveyVersionId}">
+
+        <!-- questions -->
+        <div class="card question-block"
+             th:each="q,stat : ${questions}"
+             th:attr="data-index=${stat.index},data-required=${q.required}"
+             th:style="${stat.index == 0} ? 'display:block' : 'display:none'">
+
+            <h2 class="question-title" th:text="${q.question_text}">Question</h2>
+
+            <!-- SINGLE -->
+            <div class="options" th:if="${q.type.name() == 'SINGLE'}">
+                <label class="option-box" th:each="op : ${q.option}">
+                    <input type="radio"
+                           th:name="'responses[' + ${q.id} + '].selectedOptionId'"
+                           th:value="${op.id}">
+                    <span th:text="${op.option_text}"></span>
+                </label>
+            </div>
+
+            <!-- MULTIPLE -->
+            <div class="options" th:if="${q.type.name() == 'MULTIPLE'}">
+                <label class="option-box" th:each="op : ${q.option}">
+                    <input type="checkbox"
+                           th:name="'responses[' + ${q.id} + '].selectedOptionIds'"
+                           th:value="${op.id}">
+                    <span th:text="${op.option_text}"></span>
+                </label>
+            </div>
+
+            <!-- TEXT -->
+            <div th:if="${q.type.name() == 'TEXT'}">
+                <input type="text"
+                       class="text-answer"
+                       th:name="'responses[' + ${q.id} + '].freeTextValue'"
+                       placeholder="Enter your answer">
+            </div>
+
+            <!-- SCALE -->
+            <div class="scale-box" th:if="${q.type.name() == 'SCALE'}">
+                <label th:each="i : ${#numbers.sequence(1,5)}">
+                    <input type="radio"
+                           th:name="'responses[' + ${q.id} + '].freeTextValue'"
+                           th:value="${i}">
+                    <span th:text="${i}"></span>
+                </label>
+            </div>
+
+            <!-- BOOLEAN -->
+            <div class="options" th:if="${q.type.name() == 'BOOLEAN'}">
+                <label class="option-box">
+                    <input type="radio"
+                           th:name="'responses[' + ${q.id} + '].freeTextValue'"
+                           value="true"> Yes
+                </label>
+
+                <label class="option-box">
+                    <input type="radio"
+                           th:name="'responses[' + ${q.id} + '].freeTextValue'"
+                           value="false"> No
+                </label>
+            </div>
+
+        </div>
+
+        <!-- buttons -->
+        <div class="btn-group">
+            <button type="button" id="prevBtn" onclick="prevQuestion()">Previous</button>
+            <button type="button" id="skipBtn" onclick="skipQuestion()">Skip</button>
+            <button type="button" id="nextBtn" onclick="nextQuestion()">Next</button>
+            <button type="submit" id="submitBtn" style="display:none;">Submit</button>
+        </div>
+
+    </form>
+</div>
+
+<script>
+let current = 0;
+
+const blocks = document.querySelectorAll(".question-block");
+const prevBtn = document.getElementById("prevBtn");
+const skipBtn = document.getElementById("skipBtn");
+const nextBtn = document.getElementById("nextBtn");
+const submitBtn = document.getElementById("submitBtn");
+const progressBar = document.getElementById("progressBar");
+
+function showQuestion(index){
+
+    blocks.forEach((block,i)=>{
+        block.style.display = i === index ? "block" : "none";
+    });
+
+    const active = blocks[index];
+    const required = active.dataset.required === "true";
+
+    prevBtn.style.display = index === 0 ? "none" : "inline-block";
+    skipBtn.style.display = required ? "none" : "inline-block";
+
+    if(index === blocks.length - 1){
+        nextBtn.style.display = "none";
+        submitBtn.style.display = "inline-block";
+    }else{
+        nextBtn.style.display = "inline-block";
+        submitBtn.style.display = "none";
+    }
+
+    progressBar.style.width = ((index + 1) / blocks.length * 100) + "%";
+
+    validateCurrent();
+}
+
+function prevQuestion(){
+    if(current > 0){
+        current--;
+        showQuestion(current);
+    }
+}
+
+function nextQuestion(){
+    if(nextBtn.disabled) return;
+
+    if(current < blocks.length - 1){
+        current++;
+        showQuestion(current);
+    }
+}
+
+function skipQuestion(){
+    if(current < blocks.length - 1){
+        current++;
+        showQuestion(current);
+    }
+}
+
+function validateCurrent(){
+
+    const block = blocks[current];
+    const required = block.dataset.required === "true";
+
+    if(!required){
+        nextBtn.disabled = false;
+        submitBtn.disabled = false;
+        return;
+    }
+
+    let valid = false;
+
+    const radios = block.querySelectorAll("input[type='radio']");
+    const checks = block.querySelectorAll("input[type='checkbox']");
+    const text = block.querySelector("input[type='text']");
+
+    if(radios.length){
+        valid = [...radios].some(el => el.checked);
+    }
+    else if(checks.length){
+        valid = [...checks].some(el => el.checked);
+    }
+    else if(text){
+        valid = text.value.trim() !== "";
+    }
+
+    nextBtn.disabled = !valid;
+    submitBtn.disabled = !valid;
+}
+
+document.querySelectorAll("input").forEach(el=>{
+    el.addEventListener("change", validateCurrent);
+    el.addEventListener("keyup", validateCurrent);
+});
+
+document.getElementById("surveyForm").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const result = {
+        sessionId: null,
+        surveyVersionId: null,
+        responses: {}
+    };
+
+    for(const [key,value] of formData.entries()){
+
+        if(key === "sessionId"){
+            result.sessionId = Number(value);
+            continue;
+        }
+
+        if(key === "surveyVersionId"){
+            result.surveyVersionId = Number(value);
+            continue;
+        }
+
+        const match = key.match(/responses\[(\d+)\]\.(.+)/);
+
+        if(match){
+
+            const questionId = match[1];
+            const field = match[2];
+
+            if(!result.responses[questionId]){
+                result.responses[questionId] = {};
+            }
+
+            if(field === "selectedOptionIds"){
+
+                if(!result.responses[questionId][field]){
+                    result.responses[questionId][field] = [];
+                }
+
+                result.responses[questionId][field].push(Number(value));
+
+            }else if(field === "selectedOptionId"){
+
+                result.responses[questionId][field] = Number(value);
+
+            }else{
+
+                result.responses[questionId][field] = value;
+            }
+        }
+    }
+
+  
+     try {
+        const res = await fetch(`/survey/user/response`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(result),
+        });
+
+        if (!res.ok) throw new Error(`Server error: ${res.status}`);
+        console.log("SurveySubmitRequest");
+        console.log(result);
+        console.log(JSON.stringify(result,null,2));
+        window.history.back();
+
+      }catch(error){
+
+        console.error(error);
+      }
+
+});
+
+showQuestion(current);
+</script>
+
+</body>
+</html>

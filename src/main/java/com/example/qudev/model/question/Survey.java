@@ -27,7 +27,7 @@ public class Survey {
     private String key;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
     private boolean active=true;

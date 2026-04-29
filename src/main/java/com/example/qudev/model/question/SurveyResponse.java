@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Builder
 @Entity
 @Table( name = "survey_responses")
 public class SurveyResponse  {

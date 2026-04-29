@@ -4,15 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Builder
 @Entity
 @Table(name = "user_survey_sessions")
 public class UserSurveySession {
@@ -26,6 +24,8 @@ public class UserSurveySession {
     private String status;
 
     private LocalDateTime startedAt;
+
+    private LocalDateTime finishedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ver_id", nullable = false)

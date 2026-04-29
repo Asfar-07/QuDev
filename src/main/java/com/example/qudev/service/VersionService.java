@@ -7,4 +7,5 @@ import java.util.List;
 public interface VersionService {
 
     List<SurveyVersion> listVersion();
+    SurveyVersion getVersion(long versionId);
 }
