@@ -1,4 +1,4 @@
-# qu.dev — Survey Builder Platform
+# quDev — Survey Builder Platform
 
 > An open-source developer tool that automatically generates a clean, relational database structure for survey systems — with version controlling built in.
 
@@ -13,13 +13,13 @@
 
 ---
 
-## 🧩 What is qu.dev?
+## 🧩 What is quDev?
 
 Building surveys into a project sounds simple — until you have to design the database yourself.
 
 How should the tables relate? Where does versioning live? How do you add question types without breaking existing responses?
 
-**qu.dev** solves this. It automatically generates a best-practice relational database schema for your survey system and gives you a full web interface to build, manage, version, and test surveys — without writing a single entity from scratch.
+**quDev** solves this. It automatically generates a best-practice relational database schema for your survey system and gives you a full web interface to build, manage, version, and test surveys — without writing a single entity from scratch.
 
 ---
 
@@ -65,7 +65,7 @@ How should the tables relate? Where does versioning live? How do you add questio
 
 ## 🗄️ Database Structure
 
-qu.dev automatically creates and manages the following relational schema:
+quDev automatically creates and manages the following relational schema:
 
 ```
 surveys
